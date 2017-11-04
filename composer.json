@@ -1,0 +1,38 @@
+{
+    "name": "devop-core/config",
+    "description": "Config service",
+    "keywords": ["php", "config"],
+    "homepage": "https://devop-studio.com",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DevOp Studio",
+            "email": "core@devop-studio.com",
+            "homepage": "https://devop-studio.com"
+        },
+        {
+            "name": "Zlatin Hristov",
+            "email": "about@z-latko.info",
+            "homepage": "https://z-latko.info",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^5.5.9 || ^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DevOp\\Core\\Config\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DevOp\\Core\\Config\\Test\\": "tests"
+        }
+    }
+}
