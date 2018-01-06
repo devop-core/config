@@ -60,4 +60,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = new \DevOp\Core\Config($this->config, 'dev', $this->params);
         $this->assertEquals($this->params['DB_PASSWORD'], $config->get('database.password'));
     }
+    
+    public function testGetAllValues()
+    {
+        $config = new \DevOp\Core\Config($this->config);
+        $this->arrayHasKey('app.name', $config->all());
+    }
 }
