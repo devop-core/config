@@ -17,7 +17,7 @@ class Config
     /**
      * @param string|array $resource
      * @param string $environment
-     * @param array|null $params
+     * @param array|string|null $params
      */
     public function __construct($resource, $environment = '', $params = [])
     {
@@ -70,7 +70,7 @@ class Config
     }
 
     /**
-     * @param string $resource
+     * @param array|string $resource
      * @param string $environment
      * @param mixed $params
      * @return mixed
