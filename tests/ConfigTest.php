@@ -51,7 +51,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     
     public function testInvalidConfiguration()
     {
-        $this->setExpectedException(\RuntimeException::class);
+        $this->setExpectedException('\RuntimeException');
         new \DevOp\Core\Config('invaid_configuration_file.php');
+    }
+    
+    public function testGetNestedValues()
+    {
+        $config = new \DevOp\Core\Config($this->config, 'dev', $this->params);
+        $this->assertEquals($this->params['DB_PASSWORD'], $config->get('database.password'));
     }
 }
