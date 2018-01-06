@@ -1,7 +1,7 @@
 {
     "name": "devop-core/config",
-    "description": "Config service",
-    "keywords": ["php", "config"],
+    "description": "Config service manager",
+    "keywords": ["php", "config", "configuration", "management"],
     "homepage": "https://devop-studio.com",
     "type": "library",
     "license": "MIT",
@@ -20,19 +20,19 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^5.5.9 || ^7.0"
+        "php": ">=5.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "^4.8"
     },
     "autoload": {
         "psr-4": {
-            "DevOp\\Core\\Config\\": "src"
+            "DevOp\\Core\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DevOp\\Core\\Config\\Test\\": "tests"
+            "DevOp\\Core\\Test\\": "tests"
         }
     }
 }
