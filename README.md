@@ -48,8 +48,8 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [Zlatin Hristov][]
-- [All Contributors][]
+- [Zlatin Hristov](https://z-latko.info)
+- [All Contributors](https://github.com/devop-core/config/graphs/contributors)
 
 ## License
 
