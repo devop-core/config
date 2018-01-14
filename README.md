@@ -1,4 +1,9 @@
-# DevOp Config
+# DevOp Config library
+
+## Description
+>This library is just proof of concept. We do **NOT** recommended you to use in production env.
+
+The Config component provides implementation to process php configuration files
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -7,7 +12,6 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Simple library to process your configuration parameters
 
 ## Install
 
