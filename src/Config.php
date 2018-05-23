@@ -21,6 +21,7 @@ class Config
      */
     public function __construct($resource, $environment = '', $params = [])
     {
+        
         self::$data = self::load($resource, $environment, $params);
     }
 

@@ -1,9 +1,10 @@
-# DevOp Config library
+# Config library
 
 ## Description
->This library is just proof of concept. We do **NOT** recommended you to use in production env.
 
-The Config component provides implementation to process php configuration files
+> This library is just proof of concept. > We do **NOT** recommended the use of production environment.
+
+Provide basic runtime configuration
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -13,12 +14,12 @@ The Config component provides implementation to process php configuration files
 [![Total Downloads][ico-downloads]][link-downloads]
 
 
-## Install
+## Installation
 
-Via Composer
+Package is available on [Packagist](link-packagist), you can install it using [Composer](http://getcomposer.org).
 
 ``` bash
-$ composer require devop-core/config
+composer require devop-core/config
 ```
 
 ## Usage
@@ -29,26 +30,26 @@ use DevOp\Core\Config;
 
 include_once './vendor/autoload.php';
 
-$config = new Config('./config/config.php', 'dev', 'env.php');
+$config = new Config('./config/config.php', 'dev', 'env.php'); // @resource, $environment, $params
 
-var_dump($config->get('database.password', 'test')); // get specific configuration option
+var_dump($config->get('database.password', 'test')); // get specific configuration option, with default value
 
 var_dump($config->all()); // get all configurations
 ```
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](.github/CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing
 
 ``` bash
-$ vendor/bin/phpunit
+vendor/bin/phpunit
 ```
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Credits
 
@@ -57,7 +58,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/devop-core/config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
