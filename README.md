@@ -13,7 +13,6 @@ Provide basic runtime configuration
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-
 ## Installation
 
 Package is available on [Packagist](link-packagist), you can install it using [Composer](http://getcomposer.org).
