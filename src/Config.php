@@ -65,11 +65,11 @@ class Config
      * @param mixed $resources
      * @param string|null $environment
      * @param array $params
-     * @return \static
+     * @return Config
      */
     public static function init($resources, $environment = null, array $params = [])
     {
-        return new static($resources, $environment, $params);
+        return new Config($resources, $environment, $params);
     }
     
     /**
@@ -84,7 +84,7 @@ class Config
         if (is_array($resources)) {
             $data = $this->loadFromArray($resources, $environment);
         } else if (file_exists($resources)) {
-            $data = $this->loadFromFile([$resources], $environment);
+            $data = $this->loadFromArray([$resources], $environment);
         } else {
             throw new \RuntimeException('Invalid configuration source defined.');
         }
