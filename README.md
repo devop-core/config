@@ -47,7 +47,7 @@ Please see [CHANGELOG](.github/CHANGELOG.md) for more information on what has ch
 ## Testing
 
 ``` bash
-$ vendor/bin/phpunit
+vendor/bin/phpunit
 ```
 
 ## Contributing
