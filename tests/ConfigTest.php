@@ -17,6 +17,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    public function testLoadConfig()
+    {
+        $config = \DevOp\Core\Config::init([__DIR__ . '/config/config.php']);
+        $this->assertInstanceOf('\DevOp\Core\Config', $config);
+    }
+    
     public function testGet()
     {
         $this->assertEquals('value2', $this->config->get('conf2'));

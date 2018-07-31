@@ -76,6 +76,7 @@ class Config
      * @param mixed $resources
      * @param string|null $environment
      * @param array $params
+     * @return Config
      * @throws \RuntimeException
      */
     public function load($resources, $environment = null, array $params = [])
@@ -90,6 +91,8 @@ class Config
         }
 
         $this->container = array_replace_recursive($data, $params);
+        
+        return $this;
     }
 
     /**
