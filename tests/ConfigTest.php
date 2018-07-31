@@ -40,7 +40,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     
     public function testInvalidFileException()
     {
-        $this->setExpectedException(\RuntimeException::class);
+        $this->setExpectedException('\RuntimeException');
         \DevOp\Core\Config::init('test.php');
     }
 }
