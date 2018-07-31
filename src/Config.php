@@ -7,22 +7,16 @@ class Config
     /**
      * @var mixed
      */
-    private static $data = [];
+    private $container = [];
 
     /**
-     * @var mixed
+     * @param mixed $resources
+     * @param string|null $environment
+     * @param array|null $params
      */
-    private static $values = [];
-
-    /**
-     * @param string|array $resource
-     * @param string $environment
-     * @param array|string|null $params
-     */
-    public function __construct($resource, $environment = '', $params = [])
+    public function __construct($resources, $environment = null, array $params = [])
     {
-        
-        self::$data = self::load($resource, $environment, $params);
+        $this->load($resources, $environment, $params);
     }
 
     /**
@@ -31,18 +25,18 @@ class Config
      */
     public function has($name)
     {
-        return isset(self::$data[$name]);
+        return isset($this->container[$name]);
     }
 
     /**
      * @param string $name
-     * @param mixed|null $default
+     * @param mixed $default
      * @return mixed
      */
     public function get($name, $default = null)
     {
         if ($this->has($name)) {
-            return self::$data[$name];
+            return $this->container[$name];
         }
 
         return $default;
@@ -54,79 +48,80 @@ class Config
      */
     public function set($name, $args)
     {
-        self::$data[$name] = $args;
+        $this->container[$name] = $args;
 
         return $this;
     }
-    
+
     /**
-     * 
      * @return mixed
      */
     public function all()
     {
-        return self::$data;
+        return $this->container;
     }
 
     /**
-     * @param array|string $resource
-     * @param string $environment
-     * @param mixed $params
-     * @return mixed
+     * @param mixed $resources
+     * @param string|null $environment
+     * @param array $params
+     * @return \static
+     */
+    public static function init($resources, $environment = null, array $params = [])
+    {
+        return new static($resources, $environment, $params);
+    }
+    
+    /**
+     * @param mixed $resources
+     * @param string|null $environment
+     * @param array $params
      * @throws \RuntimeException
      */
-    public static function load($resource, $environment = '', $params = [])
+    public function load($resources, $environment = null, array $params = [])
     {
 
-        if (is_string($resource) && !file_exists($resource)) {
-            throw new \RuntimeException("Invalid configuration file <{$resource}>.");
-        }
-
-        if (is_array($params)) {
-            $values = $params;
-        } else if (file_exists($params)) {
-            $values = self::load($params, $environment);
-        } else if (!empty($params)) {
-            throw new \RuntimeException("Invalid parameters file <{$params}>.");
-        }
-
-        if (!empty($values)) {
-            foreach ($values AS $key => $value) {
-                self::$values["{{$key}}"] = $value;
-            }
-        }
-
-        if (is_array($resource)) {
-            $config = array_replace_recursive(self::$data, $resource);
+        if (is_array($resources)) {
+            $data = $this->loadFromArray($resources, $environment);
+        } else if (file_exists($resources)) {
+            $data = $this->loadFromFile([$resources], $environment);
         } else {
-            $config = array_replace_recursive(self::$data, include_once $resource);
+            throw new \RuntimeException('Invalid configuration source defined.');
         }
 
-        if (!empty($environment) && is_string($resource) && false !== $pathinfo = pathinfo($resource)) {
-            $filename = implode(DIRECTORY_SEPARATOR, [$pathinfo['dirname'], "{$pathinfo['filename']}_{$environment}.{$pathinfo['extension']}"]);
-            if (file_exists($filename)) {
-                $config = array_replace_recursive($config, include_once $filename);
-            }
-        }
-
-        return self::transform($config);
+        $this->container = array_replace_recursive($data, $params);
     }
 
     /**
-     * @param mixed $data
-     * @param string $prefix
+     * @param array $resources
+     * @param string|null $environment
      * @return mixed
+     * @throws \InvalidArgumentException
      */
-    public static function transform($data, $prefix = '')
+    private function loadFromArray(array $resources = [], $environment = null)
     {
-        $values = [];
-        foreach ($data AS $key => $value) {
-            if (is_array($value)) {
-                $values = array_merge($values, self::transform($value, "{$prefix}{$key}."));
-            } else {
-                $values["{$prefix}{$key}"] = isset(self::$values[$value]) ? self::$values[$value] : $value;
+        $data = [];
+
+        foreach ($resources AS $resource) {
+            
+            if (!file_exists($resource)) {
+                throw new \InvalidArgumentException("Invalid resource {$resource}");
+            }
+
+            $data = array_replace_recursive($data, include $resource);
+
+            if (null === $environment) {
+                continue;
+            }
+
+            $pathinfo = pathinfo($resource);
+            $filename = "{$pathinfo['filename']}_{$environment}.{$pathinfo['extension']}";
+
+            if (file_exists($filename)) {
+                $data = array_replace_recursive($data, include $filename);
             }
         }
-        return $values;
+
+        return $data;
     }
 }
