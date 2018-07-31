@@ -25,15 +25,19 @@ composer require devop-core/config
 
 ``` php
 <?php
+
 use DevOp\Core\Config;
 
-include_once './vendor/autoload.php';
+include_once '../vendor/autoload.php';
 
-$config = new Config('./config/config.php', 'dev', 'env.php'); // @resource, $environment, $params
+$resources = [__DIR__ . '/config/config.php'];
+$environment = 'prod';
+$params = ['predefined' => 'static_value'];
 
-var_dump($config->get('database.password', 'test')); // get specific configuration option, with default value
+$config = new Config($resources, $environment, $params);
 
-var_dump($config->all()); // get all configurations
+var_dump([$config->all(), $config->get('conf1')]);
+
 ```
 
 ## Change log
