@@ -1,7 +1,9 @@
 <?php
 namespace DevOp\Core\Test;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ConfigTest extends TestCase
 {
 
     /**
@@ -13,7 +15,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $resource = __DIR__ . '/config/config.php';
         $this->config = \DevOp\Core\Config::init([$resource], 'prod', [
-            'static_var' => 'static_value'
+                'static_var' => 'static_value'
         ]);
     }
 
@@ -22,7 +24,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config = \DevOp\Core\Config::init([__DIR__ . '/config/config.php']);
         $this->assertInstanceOf('\DevOp\Core\Config', $config);
     }
-    
+
     public function testGet()
     {
         $this->assertEquals('value2', $this->config->get('conf2'));
@@ -43,10 +45,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNotEmpty($this->config->all());
     }
-    
+
     public function testInvalidFileException()
     {
-        $this->setExpectedException('\RuntimeException');
+        $this->expectException('\RuntimeException');
         \DevOp\Core\Config::init('test.php');
     }
 }
